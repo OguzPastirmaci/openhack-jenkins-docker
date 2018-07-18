@@ -1,6 +1,6 @@
 #!/bin/bash
-export resourceGroup=oguzpjenkinstest
-virtualMachine=oguzpjenkinstest
+export resourceGroup=oguzpjenkins1test
+virtualMachine=oguzpjenkinstest1
 adminUser=azureuser
 pathToKubeConfig=~/.kube/config
 
@@ -8,7 +8,7 @@ pathToKubeConfig=~/.kube/config
     az group create --name $resourceGroup --location eastus
 
     # Create a new virtual machine, this creates SSH keys if not present.
-    az vm create --resource-group $resourceGroup --name $virtualMachine --admin-username $adminUser --image UbuntuLTS --generate-ssh-keys
+    az vm create --resource-group $resourceGroup --name $virtualMachine --admin-username $adminUser --image UbuntuLTS --public-ip-address-dns-name $virtualMachine --generate-ssh-keys
 
     # Open port 22
     az vm open-port --port 80 --resource-group $resourceGroup --name $virtualMachine  --priority 101
