@@ -4,9 +4,6 @@ virtualMachine=oguzpjenkinstest
 adminUser=azureuser
 pathToKubeConfig=~/.kube/config
 
-if [ -f $pathToKubeConfig ]
-then
-
     # Create a resource group.
     az group create --name $resourceGroup --location eastus
 
@@ -27,12 +24,3 @@ then
 
     # Get public IP
     ip=$(az vm list-ip-addresses --resource-group $resourceGroup --name $virtualMachine --query [0].virtualMachine.network.publicIpAddresses[0].ipAddress -o tsv)
-
-    # Copy Kube config file to Jenkins
-    ssh -o "StrictHostKeyChecking no" $adminUser@$ip sudo chmod 777 /var/lib/jenkins
-    yes | scp $pathToKubeConfig $adminUser@$ip:/var/lib/jenkins/config
-    ssh -o "StrictHostKeyChecking no" $adminUser@$ip sudo chmod 777 /var/lib/jenkins/config
-
-else
-    echo "Kubernetes configuration / authentication file not found. Run az aks get-credentials to download this file."
-fi
