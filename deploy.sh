@@ -2,7 +2,6 @@
 export resourceGroup=oguzpjenkins1test
 virtualMachine=oguzpjenkinstest1
 adminUser=azureuser
-pathToKubeConfig=~/.kube/config
 
     # Create a resource group.
     az group create --name $resourceGroup --location eastus
